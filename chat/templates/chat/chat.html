@@ -1,0 +1,109 @@
+{% extends './base.html' %}
+
+{% block chat %}
+<!--################################# MODALS ################################################-->
+  {% include "./friendModal.html" %}
+
+<!--###################################Chat##############################################-->
+{% load static %}
+<!--	UI Start	-->
+<div class="container m-auto">
+	<div class="card p-1 mt-3 border">
+		<div class=" height-adjust row p-0">
+
+			<!--	Left Panel		-->
+			<div class="col-12 col-lg-4 col-xl-3 border-right d-none d-lg-block">
+
+				<!--	Search Bar	-->
+				<div class="form-group">
+				  <div class="form-group">
+					<div class="input-group mt-2 mb-3">
+					  <div class="input-group-prepend">
+						<span class="input-group-text font-weight-bold"><img src="{% static 'chat/search.svg' %}" width="20em"></span>
+					  </div>
+					  <input type="text" id="Search" oninput="searchFriend(this)" class="form-control" aria-label="Find Friend" placeholder="Search">
+					</div>
+				  </div>
+				</div>
+
+				<!--	Friend List	-->
+				<div class="list-group overflow-custom" id="friendList">
+					{% for friend in friends %}
+					<a class="list-group-item border-0 list-group-item-action ml-1 {% if friend == recipient %}bg-dark{% endif %} friend-list" data-friendname="{{friend}}">
+						<div class="d-flex align-items-start"><img src="{% static 'chat/person-circle.svg' %}" class="rounded-circle mt-1 mr-1" width="30" height="30">
+							<div class="1 ml-3">{{friend}}  <!-- Buggy -->
+								<div class="small text-muted"><span class="fas fa-circle chat-online"></span>Online</div>
+							</div>
+						</div>
+					</a>
+					{% endfor %}
+				</div>
+			</div>
+
+			<!--	Right Panel		-->
+			<div class="col-12 col-lg-8 col-xl-9">
+				<div class=" border-bottom d-none d-block">
+					<div class="d-flex align-items-center py-1">
+
+						<!--	Details of Friend	-->
+						<div class="position-relative"> <img src="{% static 'chat/person-circle.svg' %}" class="rounded-circle mx-1" width="30" height="30"> </div>
+						<div class="flex-grow-1 pl-3"> <strong>{{recipient|default:"(Select Friend)"}}</strong>
+							<div class="text-muted small"><em>Typing...</em></div>
+						</div>
+
+						<!--	Other Features	-->
+						<div>
+							<button class="btn btn-success btn-lg d-none d-sm-inline mr-1 px-3">
+								<img src="{% static 'chat/telephone.svg' %}" width="20" height="20">
+							</button>
+							<button class="btn btn-info btn-lg mr-1 d-none d-sm-inline px-3 ">
+								<img src="{% static 'chat/camera-video.svg' %}" width="20" height="20">
+							</button>
+							<button class="btn btn-warning btn-lg px-3" data-toggle="modal" data-target="#AddFriend">
+								<img src="{% static 'chat/person-plus-fill.svg' %}" width="20" height="20">
+							</button>
+							<button class="btn btn-light btn-lg d-lg-none px-3" data-toggle="modal" data-target="#SearchFriend">
+								<img src="{% static 'chat/search.svg' %}" width="20" height="20">
+							</button>
+						</div>
+					</div>
+				</div>
+
+				<!--	Chatbox	-->
+				<div class="chat-messages d-flex flex-column px-4 py-1 pr-2 " id="chat-messages">
+<!--					&lt;!&ndash;	Replies		&ndash;&gt;-->
+<!--					<div class="chat-message-left mb-4">-->
+<!--						<div> <img src="{% static 'chat/person-circle.svg' %}" class="rounded-circle mt-2 mr-1" width="30" height="30">-->
+<!--							<div class="text-muted small text-nowrap mt-2">2:44 am</div>-->
+<!--						</div>-->
+<!--						<div class="flex-shrink-1 bg-light rounded py-2 px-3 ml-3">-->
+<!--							<div class="font-weight-bold text-dark mb-1">(Friend)</div>-->
+<!--							 <span id="friend-text"></span></div> &lt;!&ndash; Buggy span tag &ndash;&gt;-->
+<!--					</div>-->
+<!--					&lt;!&ndash;	Your Messages	&ndash;&gt;-->
+<!--					<div class="chat-message-right mb-4">-->
+<!--						<div> <img src="{% static 'chat/person-circle.svg' %}" class="rounded-circle mt-2 mr-1" width="30" height="30">-->
+<!--							<div class="text-muted small text-nowrap mt-2">2:43 am</div>-->
+<!--						</div>-->
+<!--						<div class="flex-shrink-1 bg-light rounded py-2 px-3 mr-3">-->
+<!--							<div class="font-weight-bold text-dark text-right mb-1">(You)</div>-->
+<!--							<span id="your-text"></span></div>-->
+<!--					</div>-->
+				</div>
+
+				<!--	Send Message Textbox	-->
+				<form>
+					<div class="input-group mt-4">
+					<input type="text" class="form-control" autofocus id="input" placeholder="Type your message">
+					<button class="btn btn-primary" id="send"><img src="{% static 'chat/arrow-return-left.svg' %}" width="20" height="20"></button>
+					</div>
+				</form>
+
+			</div>
+		</div>
+	</div>
+	{{ sender|json_script:"sender" }}
+	{{ recipient|json_script:"recipient" }}
+    {{ request.user.username|json_script:"username" }}
+</div>
+{% endblock chat %}

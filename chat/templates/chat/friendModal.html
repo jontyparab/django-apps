@@ -1,0 +1,57 @@
+
+<!-- #######################Add Friends Modal################################## -->
+{%load static%}
+    <!-- Modal -->
+  <div class="modal fade" id="AddFriend" tabindex="-1" aria-labelledby="Find-Friend" aria-hidden="true">
+    <div class="modal-dialog ">
+      <form method="post" id="FriendRequestForm">
+        {% csrf_token %}
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="FindFriendLabel">Add Friend</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+            <div class="modal-body py-0 m-0">
+              <div class="form-group">
+                <div class="form-group">
+                  <div class="input-group mt-2 mb-3">
+                    <div class="input-group-prepend">
+                      <strong class="input-group-text font-weight-bold">@</strong>
+                    </div>
+                    <input type="text" name="friend" class="form-control" aria-label="Find Friend" placeholder="Friend's Username">
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer pb-2 pt-0 mx-auto">
+              <button type="submit" class="btn btn-success">Send Friend Request</button>
+            </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+<!-- #######################Search Friend Modal################################## -->
+
+<div class="modal" id="SearchFriend">
+  <div class="modal-dialog modal-dialog-scrollable" role="document">
+    <div class="modal-content">
+      <div class="modal-header mx-auto my-0 p-0">
+        <div class="modal-title">
+          <div class="form-group">
+              <div class="input-group mt-2 mb-3 mx-auto">
+                <div class="input-group-prepend">
+                  <span class="input-group-text font-weight-bold"><img src="{% static 'chat/search.svg' %}" width="20em"></span>
+                </div>
+                <input type="text" id="SearchModal" oninput="searchFriend(this)" class="form-control" aria-label="Find Friend" placeholder="Search">
+              </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-body mx-1 overflow-custom" id="displayFriendList">
+      </div>
+    </div>
+  </div>
+</div>

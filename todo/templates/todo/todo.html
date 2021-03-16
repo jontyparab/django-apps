@@ -1,0 +1,61 @@
+{% extends './base.html' %}
+
+{% block todo %}
+
+<!--################################# MODALS ################################################-->
+  {% include "./modals.html" %}
+
+<!--###################################Tasks##############################################-->
+{% load static %}
+<ul class="nav nav-tabs mt-3 ">
+  <li class="nav-item">
+    <a class="nav-link active" data-toggle="tab" href="#Tasks">Tasks&nbsp;<img src="{% static 'todo/journal.svg' %}" height="13em"/></a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" data-toggle="tab" href="#Completed">Completed&nbsp;<img src="{% static 'todo/trophy.svg' %}" height="15em"/></a>
+  </li>
+</ul>
+
+<div id="myTabContent" class="tab-content">
+  <div class="tab-pane fade active show" id="Tasks">
+    {% for task in tasks.all|dictsortreversed:"created" %}
+    {% if task.datecompleted == none %}
+      <div class="card my-3 d-flex flex-lg-row flex-sm-col flex-lg-nowrap border{%if task.important%}-danger{%endif%} fillform" data-id="{{task.id}}" data-title="{{task.title}}" data-description="{{task.description}}" data-important="{{task.important}}" data-completed="{%if task.datecompleted is None%}False{%else%}True{%endif%}">
+        <div class="card-body flex-grow-1" style="transform: rotate(0);">
+          <h4 class="card-title mb-n3 mx-auto text-info"><strong>{{task.title}}</strong></h4>
+          <a type="button" class="stretched-link" data-toggle="modal" href="#updationModal" data-whatever=""></a>
+          <p class="card-text text-justify p-0 text-muted">{% if task.description %}-{{ task.description|truncatechars:250 }}{% endif %}</p>
+        </div>
+        <span class="card-link btn btn-outline-success m-3 p-0  align-self-center">
+          <form method="post">{% csrf_token %}
+            <input type="hidden" name="pk" value="{{task.id}}">
+            <button type="submit" name="action" value="Done" class="btn d-flex px-3 align-items-center text-md-left text-white">Done&nbsp;<img src="{% static 'todo/done.svg' %}" alt="Done" class="float-right" height="15em" width="auto"></button>
+          </form>
+        </span>
+      </div>
+    {% endif %}
+    {% endfor tasks %}
+  </div>
+
+  <div class="tab-pane fade" id="Completed">
+    {% for task in tasks %}
+    {% if task.datecompleted != none%}
+    <div class="card my-3 d-flex flex-lg-row flex-sm-col flex-lg-nowrap border-success fillform" data-id="{{task.id}}" data-title="{{task.title}}" data-description="{{task.description}}" data-important="{{task.important}}" data-completed="{%if task.datecompleted is None%}False{%else%}True{%endif%}">
+      <div class="card-body flex-grow-1" style="transform: rotate(0);">
+        {% load tz %}
+        <h4 class="card-title mb-n3 mx-auto text-info"><strong>{{task.title}}</strong><span class="h6 text-muted float-right">&emsp;-{{task.datecompleted|timezone:'Asia/Kolkata'}}</span></h4>
+        <a type="button" class="stretched-link" data-toggle="modal" href="#updationModal" data-whatever=""></a>
+        <p class="card-text text-justify p-0 text-muted">{% if task.description %}-{{ task.description|truncatechars:250 }}{% endif %}</p>
+      </div>
+      <span class="card-link btn btn-success m-3  align-self-center">
+        <a  class="d-flex align-items-center text-md-left text-white">Completed&nbsp;<img src="{% static 'todo/trophy.svg' %}" alt="trophy" class="float-right" height="15em" width="auto"></a>
+      </span>
+    </div>
+    {% endif %}
+  {% endfor tasks %}
+  </div>
+</div>
+
+{% endblock todo %}
+
+

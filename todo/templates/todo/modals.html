@@ -1,0 +1,99 @@
+
+
+<!-- Creation Modal  -->
+
+<div class="modal fade" id="creationModal" tabindex="-1" role="dialog" aria-labelledby="creationModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="creationModalLabel">Create Task</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form method="post" id="creationForm">{% csrf_token %}
+        <div class="modal-body">
+            <div class="form-group">
+              <label for="creation-title" class="col-form-label">Title:</label>
+              <input type="text" name="title" autofocus maxlength="100" required class="form-control modal-body" id="creation-title">
+            </div>
+            <div class="form-group">
+              <label for="creation-description-text" class="col-form-label">Description:</label>
+              <textarea name="description" class="form-control modal-body" wrap="hard" rows="10" cols="20" id="creation-description-text"></textarea>
+            </div>
+
+            <div class="form-group justify-content-center mx-auto d-flex flex-row flex-wrap">
+              <div class="custom-control custom-checkbox mx-auto ">
+                <input type="checkbox" name="checklist" value="important" class="custom-control-input" id="creation-customCheck1" >
+                <label class="custom-control-label" for="creation-customCheck1">Important ❗</label>
+              </div>
+              <div class="custom-control custom-checkbox mx-auto ">
+                <input type="checkbox" name="checklist" value="completed" class="custom-control-input " id="creation-customCheck2" >
+                <label class="custom-control-label" for="creation-customCheck2">Completed ✔ ️</label>
+              </div>
+          </div>
+
+        <div class="modal-footer d-flex flex-row align-self-center">
+          <button type="button" class="btn btn-secondary mx-3" data-dismiss="modal">Cancel</button>
+          <button type="submit" name="action" value="Create" class="btn btn-primary mx-3">Create Task</button>
+        </div>
+        </div>
+      </form>
+
+    </div>
+  </div>
+</div>
+
+
+
+<!-- Updation Modal and Floating Button -->
+
+
+<div class="modal fade" id="updationModal" tabindex="-1" role="dialog" aria-labelledby="updationModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="updationModalLabel">Update Task</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form method="post" id="updationForm">{% csrf_token %}
+        <div class="modal-body">
+            <div class="form-group">
+              <input type="hidden" name="pk" id="pk" value="">
+              <label for="updation-title" class="col-form-label">Title:</label>
+              <input type="text" name="title" autofocus maxlength="100" required class="form-control modal-body" id="updation-title">
+            </div>
+            <div class="form-group">
+              <label for="updation-description-text" class="col-form-label">Description:</label>
+              <textarea name="description" class="form-control modal-body" wrap="hard" rows="10" cols="20" id="updation-description-text"></textarea>
+            </div>
+
+            <div class="form-group justify-content-center mx-auto d-flex flex-row flex-wrap">
+              <div class="custom-control custom-checkbox mx-auto ">
+                <input type="checkbox" name="checklist" value="important" class="custom-control-input" id="updation-customCheck1" >
+                <label class="custom-control-label" for="updation-customCheck1">Important ❗</label>
+              </div>
+              <div class="custom-control custom-checkbox mx-auto ">
+                <input type="checkbox" name="checklist" value="completed" class="custom-control-input " id="updation-customCheck2" >
+                <label class="custom-control-label" for="updation-customCheck2">Completed ✔ ️</label>
+              </div>
+          </div>
+
+        <div class="modal-footer d-flex flex-row align-self-center">
+          <button type="submit" name="action" value="Delete" class="btn btn-danger mx-1">Delete Task</button>
+          <button type="button" class="btn btn-secondary mx-1" data-dismiss="modal">Cancel</button>
+          <button type="submit" name="action" value="Update" class="btn btn-primary mx-1">Update Task</button>
+        </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!--################# CREATION BUTTON #####################-->
+{% load static %}
+<a href="#creationModal" class="bi bi-plus-circle-fill creationModal"  id="clearform" data-toggle="modal">
+  <img src="{% static 'todo/plus-circle.svg' %}" height="60em"/>
+</a>

@@ -1,0 +1,17 @@
+{% extends '../accounts/base.html' %}
+
+
+{% block home %}
+<div class="jumbotron">
+  <h1 class="display-3"> Welcome {{user}} </h1>
+  <p class="lead">Hey! Feel free to see around, there must be a few apps created by me in the "Apps" section.</p>
+  <hr class="my-4">
+  <p>The landing page is still pretty empty, haven't decided yet how it should look. You can try other Apps, all the *magic* lies there.</p>
+  <p class="lead d-inline-block mx-4">
+    <a class="btn btn-lg btn-info" href="{% url 'todo:todo' %}" role="button">Todo App</a>
+  </p>
+  <p class="lead d-inline-block mx-4">
+    <a class="btn btn-lg btn-success " href="{% url 'chat:chatapp' %}" role="button">Chat App</a>
+  </p>
+</div>
+{% endblock home %}

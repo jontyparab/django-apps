@@ -1,15 +1,14 @@
 # Django Apps
 
-## Completed Apps :
-
-### Accounts App
-
-App is used for authenticating the users. Signing in, Logging in,
-Logging out is taken care in here.
-### Todo App
 Bootstrap Theme: Bootstrap Darkly, Slate, Flatly, Cyborg are released under MIT Licence.\
 You can visit the website here [bootswatch.com](https://bootswatch.com)\
 Thank you very much for the themes. Love them all.\
+## Completed Apps :
+
+### Accounts App
+App is used for authenticating the users. Signing in, Logging in,
+Logging out is taken care in here.
+### Todo App
 This app allows managing daily tasks. Requires Logged-In User.
 ### Chat App
 The User Interface for this application was taken from [bootdey.com](https://bootdey.com)
